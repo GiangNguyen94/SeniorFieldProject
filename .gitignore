@@ -1,8 +1,3 @@
 *~
-*.log
-*.json
-!/Github\ Language/repos/repos_0.json
-!/Github\ Language/repos/repos_1.json
-!/Github\ Language/repos/repos_2.json
-!/Github\ Language/repos/repos_3.json
-!/Github\ Language/repos/repos_4.json
+/Github\ Language/part[0-9][0-9]/
+/Github\ Language/part[3-9]/
