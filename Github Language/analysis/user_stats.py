@@ -4,7 +4,7 @@ import os
 def report_file():
 	if not os.path.exists("reports"):
 		os.makedirs("reports")
-	return "reports/user_stats.txt"
+	return "reports/user_stats.csv"
 
 def get_user_repo_counts(start=0, end=49):
 	user_dict={}
@@ -22,6 +22,8 @@ def get_user_repo_counts(start=0, end=49):
 							user_dict[username] += 1
 						else:
 							user_dict[username] = 1
-		print >> output, sorted(user_dict.items(), key=lambda x:x[1], reverse=True)
-
+		items = sorted(user_dict.items(), key=lambda x:x[1], reverse=True)
+		print >> output,"Username,Repos"
+		for item in items:
+			print >> output, "{},{}".format(item[0],item[1])
 get_user_repo_counts(0,49)
