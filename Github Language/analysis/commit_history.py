@@ -13,7 +13,7 @@ def create_report_folder():
 
 def get_from_url(url):
 	results = {}
-	url = "{}?access_token={}".format(url,OAuth.token())
+	url = "{}?access_token={}&per_page=100".format(url,OAuth.token())
 	commits_json = urllib.urlopen(url).read()
 	commits = json.loads(commits_json)
 	while type(commits) is list and len(commits)>1:
