@@ -7,7 +7,7 @@ c = conn.cursor()
 
 
 
-sql_key_list = ["name", "full_name", "owner", "languages_url", "issue_events_url", "forks_url", "commits_url"]
+sql_key_list = ["id", "name", "full_name", "owner", "languages_url", "issue_events_url", "forks_url", "commits_url"]
 attrs = ",".join(map(lambda s: s+" text",sql_key_list))
 c.execute("DROP TABLE IF EXISTS repos")
 c.execute("CREATE TABLE repos ({})".format(attrs)) 
@@ -23,8 +23,8 @@ def insert_data(start=0, end=49):
 			with open(dir_name+"/"+file_name) as f:
 				repos = json.loads(f.read())
 				for repo in repos:
-					c.execute("INSERT INTO repos VALUES(?,?,?,?,?,?,?)", \
-						(repo["name"], repo["full_name"], \
+					c.execute("INSERT INTO repos VALUES(?,?,?,?,?,?,?,?)", \
+						(repo["id"], repo["name"], repo["full_name"], \
 							repo["owner"]["login"], \
 							repo["languages_url"], \
 							re.sub("{.*}", "", repo["issue_events_url"]), \

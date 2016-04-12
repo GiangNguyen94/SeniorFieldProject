@@ -4,6 +4,8 @@ import OAuth
 import os
 import urllib
 import datetime
+import dbservice
+import IPython
 
 def create_report_folder():
 	folder_name = "reports/forks{}".format(datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
@@ -39,13 +41,44 @@ def report_forks(hit, folder_name):
 			print >> f, "{},{},{}".format(hit[1],record[1],record[0])
 
 
-conn = sqlite3.connect('../repos-sm.sqlite')
-c = conn.cursor()
 
-c.execute("SELECT owner, name, forks_url FROM repos WHERE name LIKE ?", ('grit',))
-report_folder = create_report_folder()
-for hit in c.fetchall():
-	report_forks(hit, report_folder)
-# report_forks(c.fetchone(), report_folder)
+def find_by_name(name, exact=True, limit=10):
+	c = dbservice.get_cursor()
+	if exact:
+		c.execute("SELECT owner, name, forks_url FROM repos WHERE name LIKE ?", (name,))
+	else:
+		c.execute("SELECT owner, name, forks_url FROM repos WHERE name LIKE ?", ("%{}%".format(name),))
+	report_folder = create_report_folder()
+	for hit in c.fetchall()[:limit]:
+		report_forks(hit, report_folder)
+	print "Completed. Find reports in {}".format(report_folder)
+	c.close()
 
-c.close()
+def find_by_full_name(full_name):
+	c = dbservice.get_cursor()
+	c.execute("SELECT owner, name, forks_url FROM repos WHERE full_name LIKE ?", (full_name,))
+	report_folder = create_report_folder()
+	for hit in c.fetchall():
+		report_forks(hit, report_folder)
+	print "Completed. Find reports in {}".format(report_folder)
+	c.close()
+
+def find_by_full_names(full_name_list):
+	c = dbservice.get_cursor()
+	report_folder = create_report_folder()
+	for name in full_name_list:
+		c.execute("SELECT owner, name, forks_url FROM repos WHERE full_name LIKE ?", (name,))
+		hits = c.fetchall()
+		IPython.embed()
+		for hit in hits:
+			report_forks(hit, report_folder)
+	print "Completed. Find reports in {}".format(report_folder)
+	c.close()
+
+
+
+# Usage examples:
+# find_by_name('grit', exact=True, limit=3)
+# find_by_name('grit', exact=False, limit=30)
+# find_by_full_name('mojombo/grit')
+# find_by_full_names(['darrenboyd/grit', 'foca/integrity-email', 'foca/integrity'])

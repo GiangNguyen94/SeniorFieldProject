@@ -4,6 +4,7 @@ import OAuth
 import os
 import urllib
 import datetime
+import dbservice
 
 def create_report_folder():
 	folder_name = "reports/issue_events{}".format(datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
@@ -38,14 +39,33 @@ def report_events(hit, folder_name):
 		for record in sorted_records:
 			print >> f, "{},{},{}".format(hit[1],record[1],record[0])
 
+def find_by_name(name, exact=True, limit=10):
+	c = dbservice.get_cursor()
+	if exact:
+		c.execute("SELECT owner, name, issue_events_url FROM repos WHERE name LIKE ?", (name,))
+	else:
+		c.execute("SELECT owner, name, issue_events_url FROM repos WHERE name LIKE ?", ("%{}%".format(name),))
+	report_folder = create_report_folder()
+	for hit in c.fetchall()[:limit]:
+		report_events(hit, report_folder)
+	print "Completed. Find reports in {}".format(report_folder)
+	c.close()
 
-conn = sqlite3.connect('../repos-sm.sqlite')
-c = conn.cursor()
+def find_by_full_name(full_name):
+	c = dbservice.get_cursor()
+	c.execute("SELECT owner, name, issue_events_url FROM repos WHERE full_name LIKE ?", (full_name,))
+	report_folder = create_report_folder()
+	for hit in c.fetchall():
+		report_events(hit, report_folder)
+	print "Completed. Find reports in {}".format(report_folder)
+	c.close()
 
-c.execute("SELECT owner, name, issue_events_url FROM repos WHERE name LIKE ?", ('grit',))
-report_folder = create_report_folder()
-for hit in c.fetchall():
-	report_events(hit, report_folder)
-# report_events(c.fetchone(), report_folder)
-
-c.close()
+def find_by_full_names(full_name_list):
+	c = dbservice.get_cursor()
+	report_folder = create_report_folder()
+	for name in full_name_list:
+		c.execute("SELECT owner, name, issue_events_url FROM repos WHERE full_name LIKE ?", (name,))
+		for hit in c.fetchall():
+			report_events(hit, report_folder)
+	print "Completed. Find reports in {}".format(report_folder)
+	c.close()
