@@ -35,6 +35,15 @@ def report_commits(hit, folder_name):
 		for record in records.values():
 			print >> f, "{},{}".format(hit[1],record)
 
+def find_raw(username, reponame, url, folder=None):
+	if folder is None:
+		folder = create_report_folder()
+	report_commits([username, reponame, url], folder)
+
+def find_raws(params):
+	folder = create_report_folder()
+	for param in params:
+		report_commits(param, folder)
 
 def find_by_name(name, exact=True, limit=10):
 	c = dbservice.get_cursor()

@@ -26,4 +26,3 @@ def get_user_repo_counts(start=0, end=49):
 		print >> output,"Username,Repos"
 		for item in items:
 			print >> output, "{},{}".format(item[0],item[1])
-get_user_repo_counts(0,49)

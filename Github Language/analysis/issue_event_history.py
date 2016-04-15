@@ -39,6 +39,16 @@ def report_events(hit, folder_name):
 		for record in sorted_records:
 			print >> f, "{},{},{}".format(hit[1],record[1],record[0])
 
+def find_raw(username, reponame, url, folder=None):
+	if folder is None:
+		folder = create_report_folder()
+	report_events([username, reponame, url], folder)
+
+def find_raws(params):
+	folder = create_report_folder()
+	for param in params:
+		report_events(param, folder)
+
 def find_by_name(name, exact=True, limit=10):
 	c = dbservice.get_cursor()
 	if exact:
