@@ -15,7 +15,7 @@ def create_report_folder():
 
 def get_from_url(url):
 	results = {}
-	url = "{}?access_token={}&per_page=100".format(url,OAuth.token())
+	url = "{}?per_page=100".format(url)
 	page=1
 	next_url = "{}&page={}".format(url,page)
 	forks_json = urllib.urlopen(next_url).read()
@@ -24,7 +24,7 @@ def get_from_url(url):
 		for fork in forks:
 			results[fork["id"]]=[fork["id"], fork["created_at"]]
 		page += 1
-		next_url = "{}&page={}".format(url,page)
+		next_url = "{}&access_token={}&page={}".format(url,OAuth.token(),page)
 		forks_json = urllib.urlopen(next_url).read()
 		forks = json.loads(forks_json)
 	return results

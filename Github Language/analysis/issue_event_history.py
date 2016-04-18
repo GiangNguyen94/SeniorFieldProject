@@ -14,7 +14,7 @@ def create_report_folder():
 
 def get_from_url(url):
 	results = {}
-	url = "{}?access_token={}&per_page=100".format(url,OAuth.token())
+	url = "{}?per_page=100".format(url)
 	page=1
 	next_url = "{}&page={}".format(url,page)
 	events_json = urllib.urlopen(next_url).read()
@@ -23,7 +23,8 @@ def get_from_url(url):
 		for event in events:
 			results[event["id"]]=[event["id"], event["created_at"]]
 		page += 1
-		next_url = "{}&page={}".format(url,page)
+		next_url = "{}&access_token={}&page={}".format(url,OAuth.token(),page)
+		print next_url
 		events_json = urllib.urlopen(next_url).read()
 		events = json.loads(events_json)
 	return results

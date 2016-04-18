@@ -14,13 +14,13 @@ def create_report_folder():
 
 def get_from_url(url):
 	results = {}
-	url = "{}?access_token={}&per_page=100".format(url,OAuth.token())
+	url = "{}?per_page=100".format(url)
 	commits_json = urllib.urlopen(url).read()
 	commits = json.loads(commits_json)
 	while type(commits) is list and len(commits)>1:
 		for commit in commits:
 			results[commit["sha"]]=commit["commit"]["author"]["date"]
-		next_url = "{}&sha={}".format(url,commits[-1]["sha"])
+		next_url = "{}&access_token={}&sha={}".format(url,OAuth.token(),commits[-1]["sha"])
 		commits_json = urllib.urlopen(next_url).read()
 		commits = json.loads(commits_json)
 	return results

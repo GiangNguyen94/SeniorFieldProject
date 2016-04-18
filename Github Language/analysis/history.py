@@ -47,4 +47,4 @@ def find_live_by_search_query(q, limit=10, sort="", order="desc", report_type=["
 	if "issue_event" in report_type:
 		event_params = [[item["owner"]["login"], item["name"], re.sub("{.*}", "", item["issue_events_url"])] for item in results["items"]]
 		issue_event_history.find_raws(event_params)
-	IPython.embed()
+	# IPython.embed()
