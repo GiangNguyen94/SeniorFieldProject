@@ -2,6 +2,10 @@
 # ./run.sh [--most-popular]
 ##### REPL
 
+function repl {#!/bin/bash
+# ./run.sh [--most-popular]
+##### REPL
+
 function repl {
 	echo "this is repl"
 }
@@ -53,8 +57,8 @@ function most_widely_used_tech {
 	echo "most widely-used technology in particular month of a year"
 }
 
-##### technologies used in website
-function web_tech {
+##### technologies used in website and website depolyment
+function web_information {
 	#let user input
 	echo "Please type the WEBSITE you are intereted in followed by [ENTER]:"
 	read -p '> ' website
@@ -82,9 +86,9 @@ function web_tech {
 	filename=""
 	filename="$month$year"
 	target_file=(~/Desktop/shell/commoncrawl_data/data4-web_components/$filename/webComponents.csv)
+	target_file_deploy=(~/Desktop/shell/commoncrawl_data/data3-web_deployments/$filename/websiteDeployments.csv)
 
-	#read from target file
-	technologies=""
+	#read from the target file in web components
 	while read line; do
 		IFS=',' read -ra array <<< "$line"
 		#printf '%s\n' "${array[@]}"
@@ -95,11 +99,32 @@ function web_tech {
 		fi
 	done < "$target_file"
 
-}
-
-##### website server delopyment
-function web_depolyment {
-	echo "website depolyment"
+	#read from the web deployment file
+	line_count=0
+	country_name_array=()
+	num_array=()
+	content_array=()
+	while read line; do
+		if [[ $line_count -eq 0 ]]; then
+			let "line_count=line_count+1"
+			IFS=',' read -ra country_name_array <<< "$line"
+		else
+			IFS=',' read -ra num_array <<< "$line"
+			length=${#num_array[@]}
+			if [[ "${num_array[0]}" == "$website" ]]; then
+				index=0
+				for var in "${num_array[@]:1:$length-1}"
+				do
+					let "index=index+1"
+					if [[ ${var} -gt 0 ]]; then
+						content_array+=( "${country_name_array[$index]}" )
+					fi
+				done
+				break
+			fi
+		fi
+	done < "$target_file_deploy"
+	echo "The server of $website is deployed at: ${content_array[@]}"
 }
 
 ##### documentation
@@ -114,9 +139,7 @@ if [ $# -gt 0 ]; then
 							              														;;
 		--most-widely-used-tech | -mwut )	most_widely_used_tech
 							              														;;
-		--web-depolyment | -wd ) web_depolyment
-																				;;
-		--tech-in-web | -tiw) web_tech
+		--web-information | -wi) web_information
 																;;
 		-h | --help )		           usage
 							            			exit
