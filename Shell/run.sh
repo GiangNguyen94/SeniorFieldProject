@@ -3,7 +3,26 @@
 
 ##### REPL
 function repl {
-	echo "this is repl"
+	while true ; do
+		echo -n "What are you interested in? Type q to exit > "
+		read keyword
+		if [ $keyword = q ]; then
+			exit
+		fi
+		echo -n "GitHub, CommonCrawl, or both? (g|c|b)> "
+		read choice
+		if [ $choice = g ]; then
+			github $keyword
+		elif [ $choice = c ]; then
+			echo c
+		else
+			echo gc
+		fi
+	done
+}
+
+function github () {
+	python ../GitHub\ Language/analysis/run.py $1
 }
 
 ##### most-popular
@@ -132,16 +151,16 @@ function usage {
 if [ $# -gt 0 ]; then
 	case $1 in
 		--most-widely-used-web | -mwuw )	most_widely_used_web
-							              														;;
+							              	;;
 		--most-widely-used-tech | -mwut )	most_widely_used_tech
-							              														;;
-		--web-information | -wi) web_information
-																;;
-		-h | --help )		           usage
-							            			exit
-							              			;;
+							              	;;
+		--web-information | -wi) 			web_information
+											;;
+		-h | --help )		           		usage
+											exit
+											;;
 		* )					           		usage
-							          			exit 1
+							          		exit 1
 	esac
 else
 	repl

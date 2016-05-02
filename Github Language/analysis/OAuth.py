@@ -1,6 +1,8 @@
 import sys
+import os
 
-with open('access_token.secret') as f:
+filename = os.path.join(os.path.dirname(__file__), 'access_token.secret')
+with open(filename) as f:
 	TOKENS = [line.rstrip() for line in f]
 
 n_tokens = len(TOKENS)

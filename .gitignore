@@ -3,3 +3,4 @@
 *.secret
 /Github\ Language/repos/part[0-9][0-9]/
 /Github\ Language/repos/part[3-9]/
+/Shell/reports/
