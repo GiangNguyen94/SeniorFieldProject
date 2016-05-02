@@ -1,11 +1,7 @@
 #!/bin/bash
 # ./run.sh [--most-popular]
-##### REPL
 
-function repl {#!/bin/bash
-# ./run.sh [--most-popular]
 ##### REPL
-
 function repl {
 	echo "this is repl"
 }
