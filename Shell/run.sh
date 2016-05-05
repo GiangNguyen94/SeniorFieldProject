@@ -1,7 +1,7 @@
 #!/bin/bash
 # ./run.sh [--most-popular]
 
-##### REPL
+##### Github
 function repl {
 	while true ; do
 		echo -n "What are you interested in? Type q to exit > "
@@ -9,20 +9,13 @@ function repl {
 		if [ $keyword = q ]; then
 			exit
 		fi
-		echo -n "GitHub, CommonCrawl, or both? (g|c|b)> "
-		read choice
-		if [ $choice = g ]; then
-			github $keyword
-		elif [ $choice = c ]; then
-			echo c
-		else
-			echo gc
-		fi
+		github keyword
 	done
 }
 
 function github () {
 	python ../GitHub\ Language/analysis/run.py $1
+	
 }
 
 ##### most-popular

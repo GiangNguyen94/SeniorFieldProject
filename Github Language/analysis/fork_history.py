@@ -1,10 +1,6 @@
-import sqlite3
-import json
-import OAuth
-import os
-import urllib
-import datetime
-import dbservice
+import sqlite3, json, os, urllib, datetime, shutil, urllib2, re
+import OAuth, dbservice
+import progressbar
 import IPython
 
 def create_report_folder():
@@ -20,13 +16,21 @@ def get_from_url(url):
 	next_url = "{}&page={}".format(url,page)
 	forks_json = urllib.urlopen(next_url).read()
 	forks = json.loads(forks_json)
+	# for progress bar
+	last_page = __get_last_page(next_url)
+	bar = __get_progressbar(last_page)
+	print "Getting issue event history. About {} API calls will be made".format(last_page)
+	bar.start()
+	# read page by page	
 	while type(forks) is list and len(forks)>0:		
 		for fork in forks:
 			results[fork["id"]]=[fork["id"], fork["created_at"]]
+		bar.update(page)
 		page += 1
 		next_url = "{}&access_token={}&page={}".format(url,OAuth.token(),page)
 		forks_json = urllib.urlopen(next_url).read()
 		forks = json.loads(forks_json)
+	bar.finish()
 	return results
 
 def report_forks(hit, folder_name):
@@ -35,10 +39,15 @@ def report_forks(hit, folder_name):
 		os.makedirs(subfolder_name)
 	records = get_from_url(hit[2]).values()
 	sorted_records = sorted(records, key=lambda l:l[1]) #sort by fork id
-	with open("{}/{}.csv".format(subfolder_name, hit[1]),"w") as f:
+	filename = "{}/{}.csv".format(subfolder_name, hit[1])
+	with open(filename,"w") as f:
 		print >> f, "repo_name,time,id"
 		for record in sorted_records:
 			print >> f, "{},{},{}".format(hit[1],record[1],record[0])
+	print "Find fork history in {}".format(filename)
+	if not os.path.exists("tmp/fork/"):
+		os.makedirs("tmp/fork")
+	shutil.copy(filename,"tmp/fork")
 
 def find_raw(username, reponame, url, folder=None):
 	if folder is None:
@@ -83,7 +92,16 @@ def find_by_full_names(full_name_list):
 	print "Completed. Find reports in {}".format(report_folder)
 	c.close()
 
+def __get_last_page(url):
+	response = urllib2.urlopen(url)
+	header = response.info()
+	link = header.dict['link'].split(",")[1].split(";")[0].strip()
+	last_page = re.split("(\?|\&)page\=", link)[-1].strip(">")
+	return int(last_page)
 
+def __get_progressbar(maxval):
+	return progressbar.ProgressBar(maxval=maxval, \
+		widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])
 
 # Usage examples:
 # find_by_name('grit', exact=True, limit=3)

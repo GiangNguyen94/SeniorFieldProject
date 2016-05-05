@@ -1,10 +1,7 @@
-import sqlite3
-import json
-import OAuth
-import os
-import urllib
-import datetime
-import dbservice
+import sqlite3, json, os, urllib, datetime, shutil, urllib2, re
+import OAuth, dbservice
+import progressbar
+import IPython
 
 def create_report_folder():
 	folder_name = "reports/issue_events{}".format(datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
@@ -19,14 +16,21 @@ def get_from_url(url):
 	next_url = "{}&page={}".format(url,page)
 	events_json = urllib.urlopen(next_url).read()
 	events = json.loads(events_json)
+	# for progress bar
+	last_page = __get_last_page(next_url)
+	bar = __get_progressbar(last_page)
+	print "Getting issue event history. About {} API calls will be made".format(last_page)
+	bar.start()
+	# read page by page	
 	while type(events) is list and len(events)>0:		
 		for event in events:
 			results[event["id"]]=[event["id"], event["created_at"]]
+		bar.update(page)
 		page += 1
 		next_url = "{}&access_token={}&page={}".format(url,OAuth.token(),page)
-		print next_url
 		events_json = urllib.urlopen(next_url).read()
 		events = json.loads(events_json)
+	bar.finish()
 	return results
 
 def report_events(hit, folder_name):
@@ -35,10 +39,16 @@ def report_events(hit, folder_name):
 		os.makedirs(subfolder_name)
 	records = get_from_url(hit[2]).values()
 	sorted_records = sorted(records, key=lambda l:l[1]) #sort by event id
-	with open("{}/{}.csv".format(subfolder_name, hit[1]),"w") as f:
+	filename = "{}/{}.csv".format(subfolder_name, hit[1])
+	with open(filename,"w") as f:
 		print >> f, "repo_name,time,id"
 		for record in sorted_records:
 			print >> f, "{},{},{}".format(hit[1],record[1],record[0])
+	print "Find commits history in {}".format(filename)
+	if not os.path.exists("tmp/issue_event/"):
+		os.makedirs("tmp/issue_event/")
+	shutil.copy(filename, "tmp/issue_event")
+
 
 def find_raw(username, reponame, url, folder=None):
 	if folder is None:
@@ -80,3 +90,14 @@ def find_by_full_names(full_name_list):
 			report_events(hit, report_folder)
 	print "Completed. Find reports in {}".format(report_folder)
 	c.close()
+
+def __get_last_page(url):
+	response = urllib2.urlopen(url)
+	header = response.info()
+	link = header.dict['link'].split(",")[1].split(";")[0].strip()
+	last_page = re.split("(\?|\&)page\=", link)[-1].strip(">")
+	return int(last_page)
+
+def __get_progressbar(maxval):
+	return progressbar.ProgressBar(maxval=maxval, \
+		widgets=[progressbar.Bar('=', '[', ']'), ' ', progressbar.Percentage()])

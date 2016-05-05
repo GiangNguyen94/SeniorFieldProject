@@ -1,10 +1,6 @@
-import sqlite3
-import json
-import OAuth
-import os
-import urllib
-import datetime
-import dbservice
+import sqlite3, json, os, urllib, datetime, shutil, urllib2, re
+import OAuth, dbservice
+import IPython
 
 def create_report_folder():
 	folder_name = "reports/commits{}".format(datetime.datetime.now().strftime("%Y%m%d%H%M%S"))
@@ -17,6 +13,8 @@ def get_from_url(url):
 	url = "{}?per_page=100".format(url)
 	commits_json = urllib.urlopen(url).read()
 	commits = json.loads(commits_json)
+	print "Getting commit history"
+	# read page by page	
 	while type(commits) is list and len(commits)>1:
 		for commit in commits:
 			results[commit["sha"]]=commit["commit"]["author"]["date"]
@@ -30,10 +28,15 @@ def report_commits(hit, folder_name):
 	if not os.path.exists(subfolder_name):
 		os.makedirs(subfolder_name)
 	records = get_from_url(hit[2])
-	with open("{}/{}.csv".format(subfolder_name, hit[1]),"w") as f:
+	filename = "{}/{}.csv".format(subfolder_name, hit[1])
+	with open(filename,"w") as f:
 		print >> f, "repo_name,time"
 		for record in records.values():
 			print >> f, "{},{}".format(hit[1],record)
+	print "Find commits history in {}".format(filename)
+	if not os.path.exists("tmp/commit"):
+		os.makedirs("tmp/commit")
+	shutil.copy(filename, "tmp/commit")
 
 def find_raw(username, reponame, url, folder=None):
 	if folder is None:
