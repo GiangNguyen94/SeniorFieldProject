@@ -14,6 +14,7 @@ function repl {
 }
 
 function github () {
+	echo "Searching $1 in GitHub"
 	python ../GitHub\ Language/analysis/run.py $1
 	
 }
