@@ -25,7 +25,33 @@ function github () {
 	echo "Searching $1 in GitHub"
 	SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../GithubLanguage/analysis" && pwd )"
 	python $SCRIPT_DIR/run.py $1 $2
-	
+	cp RViz.R tmp/commit/
+	cp RViz.R tmp/fork/
+	cp RViz.R tmp/issue_event/
+	cd tmp/commit/
+	for i in `ls -a *.csv`
+	do
+		tmpname=$i
+	done
+	Rscript RViz.R $tmpname commit
+	cd ..
+	cd fork/
+	for i in `ls -a *.csv`
+	do
+		tmpname=$i
+	done
+	Rscript RViz.R $tmpname fork
+	cd ..
+	cd issue_event/
+	for i in `ls -a *.csv`
+	do
+		tmpname=$i
+	done
+	Rscript RViz.R $tmpname issue
+	cd ..
+	cd ..
+
+
 }
 
 function cleanup {
@@ -57,22 +83,33 @@ function most_widely_used_web {
 	echo "processing..."
 
 	#build target directory
-  filename=""
+ filename=""
+  cond=true
 	filename="$month$year"
-	target_file=(~/Desktop/shell/commoncrawl_data/data1-web_ip_country/$filename/website.csv)
+	target_file=(~/Desktop/untitled\ folder/data1-web\ ip\ country/$filename/website.csv)
+	if [[ -f target_file ]];
+		then
+		cond=true
+	else
+		cond=false
+		echo "CommonCrawl does not have that month"
+	fi
 
 	#read data from target directory
-	popular_web=""
-	max_number=0
-	while read line; do
-		while IFS=',' read -ra array; do
-			if [[ ${array[1]} -gt $max_number ]]; then
-				popular_web=${array[0]}
-				max_number=${array[1]}
-			fi
-		done <<< "$line"
-	done < "$target_file"
-	echo "The most widely-used website in $filename is: $popular_web"
+	while [[ cond == true ]];
+	do
+		popular_web=""
+		max_number=0
+		while read line; do
+			while IFS=',' read -ra array; do
+				if [[ ${array[1]} -gt $max_number ]]; then
+					popular_web=${array[0]}
+					max_number=${array[1]}
+				fi
+			done <<< "$line"
+		done < "$target_file"
+		echo "The most widely-used website in $filename is: $popular_web"
+	done
 }
 
 ##### most widely-used technology in particular month of a year
