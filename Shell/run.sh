@@ -51,7 +51,8 @@ function github () {
 	cd ..
 	cd ..
 
-
+	echo "Find the trend graphs in Shell/tmp/[commit|fork|issue_event]"
+	echo "All files in tmp/ will be overwritten at next run, copy desired files to secure location."
 }
 
 function cleanup {
