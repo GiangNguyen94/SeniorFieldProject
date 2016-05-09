@@ -51,7 +51,6 @@ function github () {
 	cd ..
 	cd ..
 
-
 }
 
 function cleanup {
@@ -114,7 +113,39 @@ function most_widely_used_web {
 
 ##### most widely-used technology in particular month of a year
 function most_widely_used_tech {
-	echo "most widely-used technology in particular month of a year"
+	echo "Please specify the year (4 digits) followed by [ENTER]:"
+	read -p '> ' year
+	while [[ $year -ne "2014"  && $year -ne "2015" ]];
+	do
+		echo "Please re-type the year (2014 or 2015) followed by [ENTER]:"
+		read -p '> ' year
+	done
+	echo "Please specify the month (1 or 2 digits) followed by [ENTER]:"
+	read -p '> ' month
+	while [[ $month -lt 1 || $month -gt 12 ]];
+	do
+		echo "Please re-type the month (1 to 12) followed by [ENTER]:"
+		read -p '> ' month
+	done
+	if [[ $month -le 9 && $month -ge 1 ]]; then
+		month="0$month"
+	fi
+	filename=""
+ 	cond=true
+	filename="$month$year.pdf"
+	target_file=(../$filename)
+	if [[ -f target_file ]];
+		then
+		cond=true
+	else
+		cond=false
+		echo "CommonCrawl does not have that month"
+	fi
+	if [[ cond==true ]];
+	then
+		cd ..
+		open $month$year.pdf
+	fi
 }
 
 ##### technologies used in website and website depolyment
