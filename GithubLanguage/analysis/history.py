@@ -84,4 +84,4 @@ def __get_choice_from_input(limit):
 				return choice
 		print "Please enter 0 ~ {}".format(limit)
 
-find_live_by_search_query_with_selection("angular", limit=30, report_type=["commit","fork","issue_event"])
+# find_live_by_search_query_with_selection("angular", limit=30, report_type=["commit","fork","issue_event"])

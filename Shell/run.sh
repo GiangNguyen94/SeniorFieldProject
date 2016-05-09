@@ -3,21 +3,28 @@
 
 ##### Github
 function repl {
+	cleanup
 	while true ; do
 		echo -n "What are you interested in? Type q to exit > "
 		read keyword
 		if [ $keyword = q ]; then
 			exit
 		fi
-		github keyword
+		github $keyword
 	done
 }
 
 function github () {
 	echo "Searching $1 in GitHub"
-	python ../GitHub\ Language/analysis/run.py $1
+	SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../GithubLanguage/analysis" && pwd )"
+	python $SCRIPT_DIR/run.py $1
 	
 }
+
+function cleanup {
+	rm -rf tmp
+}
+
 
 ##### most-popular
 function most_widely_used_web {
