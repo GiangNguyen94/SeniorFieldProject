@@ -33,7 +33,7 @@ def report_commits(hit, folder_name):
 		print >> f, "repo_name,time"
 		for record in records.values():
 			print >> f, "{},{}".format(hit[1],record)
-	print "Find commits history in {}".format(filename)
+	print "Find commit history in {}".format(filename)
 	if not os.path.exists("tmp/commit"):
 		os.makedirs("tmp/commit")
 	shutil.copy(filename, "tmp/commit")

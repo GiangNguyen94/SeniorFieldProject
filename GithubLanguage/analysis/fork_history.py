@@ -18,19 +18,22 @@ def get_from_url(url):
 	forks = json.loads(forks_json)
 	# for progress bar
 	last_page = __get_last_page(next_url)
-	bar = __get_progressbar(last_page)
-	print "Getting issue event history. About {} API calls will be made".format(last_page)
-	bar.start()
+	if last_page > 0:
+		bar = __get_progressbar(last_page)
+		print "Getting issue event history. About {} API calls will be made".format(last_page)
+		bar.start()
 	# read page by page	
 	while type(forks) is list and len(forks)>0:		
 		for fork in forks:
 			results[fork["id"]]=[fork["id"], fork["created_at"]]
-		bar.update(page)
+		if last_page > 0:
+			bar.update(page)
 		page += 1
 		next_url = "{}&access_token={}&page={}".format(url,OAuth.token(),page)
 		forks_json = urllib.urlopen(next_url).read()
 		forks = json.loads(forks_json)
-	bar.finish()
+	if last_page > 0:
+		bar.finish()
 	return results
 
 def report_forks(hit, folder_name):
@@ -95,9 +98,12 @@ def find_by_full_names(full_name_list):
 def __get_last_page(url):
 	response = urllib2.urlopen(url)
 	header = response.info()
-	link = header.dict['link'].split(",")[1].split(";")[0].strip()
-	last_page = re.split("(\?|\&)page\=", link)[-1].strip(">")
-	return int(last_page)
+	if 'link' in header.dict:
+		link = header.dict['link'].split(",")[1].split(";")[0].strip()
+		last_page = re.split("(\?|\&)page\=", link)[-1].strip(">")
+		return int(last_page)
+	else:
+		return -1
 
 def __get_progressbar(maxval):
 	return progressbar.ProgressBar(maxval=maxval, \

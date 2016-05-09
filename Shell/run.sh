@@ -10,14 +10,21 @@ function repl {
 		if [ $keyword = q ]; then
 			exit
 		fi
-		github $keyword
+		re='^[0-9]+$'
+		
+		echo -n "How many results do you want to see?"
+		read limit			
+		if ! [[ $limit =~ $re ]] ; then
+		   limit = 25
+		fi
+		github $keyword $limit
 	done
 }
 
 function github () {
 	echo "Searching $1 in GitHub"
 	SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../GithubLanguage/analysis" && pwd )"
-	python $SCRIPT_DIR/run.py $1
+	python $SCRIPT_DIR/run.py $1 $2
 	
 }
 

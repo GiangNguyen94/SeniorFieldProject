@@ -18,19 +18,22 @@ def get_from_url(url):
 	events = json.loads(events_json)
 	# for progress bar
 	last_page = __get_last_page(next_url)
-	bar = __get_progressbar(last_page)
-	print "Getting issue event history. About {} API calls will be made".format(last_page)
-	bar.start()
+	if last_page>0:
+		bar = __get_progressbar(last_page)
+		print "Getting issue event history. About {} API calls will be made".format(last_page)
+		bar.start()
 	# read page by page	
 	while type(events) is list and len(events)>0:		
 		for event in events:
 			results[event["id"]]=[event["id"], event["created_at"]]
-		bar.update(page)
+		if last_page>0:
+			bar.update(page)
 		page += 1
 		next_url = "{}&access_token={}&page={}".format(url,OAuth.token(),page)
 		events_json = urllib.urlopen(next_url).read()
 		events = json.loads(events_json)
-	bar.finish()
+	if last_page>0:
+		bar.finish()
 	return results
 
 def report_events(hit, folder_name):
@@ -44,7 +47,7 @@ def report_events(hit, folder_name):
 		print >> f, "repo_name,time,id"
 		for record in sorted_records:
 			print >> f, "{},{},{}".format(hit[1],record[1],record[0])
-	print "Find commits history in {}".format(filename)
+	print "Find issue event history in {}".format(filename)
 	if not os.path.exists("tmp/issue_event/"):
 		os.makedirs("tmp/issue_event/")
 	shutil.copy(filename, "tmp/issue_event")
@@ -94,9 +97,12 @@ def find_by_full_names(full_name_list):
 def __get_last_page(url):
 	response = urllib2.urlopen(url)
 	header = response.info()
-	link = header.dict['link'].split(",")[1].split(";")[0].strip()
-	last_page = re.split("(\?|\&)page\=", link)[-1].strip(">")
-	return int(last_page)
+	if 'link' in header.dict:
+		link = header.dict['link'].split(",")[1].split(";")[0].strip()
+		last_page = re.split("(\?|\&)page\=", link)[-1].strip(">")
+		return int(last_page)
+	else:
+		return -1
 
 def __get_progressbar(maxval):
 	return progressbar.ProgressBar(maxval=maxval, \
