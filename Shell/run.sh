@@ -18,7 +18,39 @@ function repl {
 		   limit = 25
 		fi
 		github $keyword $limit
+		finalscore
 	done
+}
+
+function finalscore {
+
+	read USER_NAME < tmp/username.txt
+	python3 importPraw.py USER_NAME
+	read USER_SCORE < tmp/user_reddit.score
+	python3 hackernews.py USER_NAME
+	read HACKERS_SCORE < tmp/user_hackers.score
+
+	cp history_score.py tmp/commit/
+	cp history_score.py tmp/fork/
+	cp history_score.py tmp/issue_event/
+	cd tmp/commit/
+	python3 history_score.py
+	read COMMIT_SCORE < history.score
+	
+	cd ..
+	cd fork/
+	python3 history_score.py
+	read FORK_SCORE < history.score
+
+	cd ..
+	cd issue_event/
+	python3 history_score.py
+	read ISSUE_SCORE < history.score
+
+	cd ..   #AT SHELL
+	cd ..	#AT SENIOR FIELD PROJECT
+
+	( $COMMIT_SCORE + $FORK_SCORE + $ISSUE_SCORE ) * $KARMA_SCORE
 }
 
 function github () {
@@ -48,13 +80,13 @@ function github () {
 		tmpname=$i
 	done
 	Rscript RViz.R $tmpname issue
-	cd ..
-	cd ..
+	cd ..   #AT SHELL
+	cd ..	#AT SENIOR FIELD PROJECT
 
 
 	echo "Find the trend graphs in Shell/tmp/[commit|fork|issue_event]"
 	echo "All files in tmp/ will be overwritten at next run, copy desired files to secure location."
-	
+
 }
 
 function cleanup {

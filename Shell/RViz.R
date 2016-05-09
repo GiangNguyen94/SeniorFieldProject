@@ -12,6 +12,7 @@ dd.agg <- aggregate(dd$df.repo_time ~ mo, dd, FUN = sum)
 dd.agg$group=1
 colnames(dd.agg)=c("Month","Times","Group")
 graphname=sub("csv","pdf",graphname)
+write.table(dd.agg$Times,file="RTable.csv",col.names=F,row.names=F)
 pdf(graphname,width=12,height=9)
 p = ggplot(data=dd.agg,aes(x=Month,y=Times,group=Group))+ggtitle(graphname)+geom_line()+geom_point()
 print(p + theme(axis.text.x=element_text(angle=90)))
