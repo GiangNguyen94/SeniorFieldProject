@@ -12,6 +12,8 @@ To run the provided shell script, you need:
 	* urllib2
 	* progressbar
 	* ipython
+* Python 3.4
+	* praw
 * R 3.2.4
 	* ggplot2
 * PDF Viewer
