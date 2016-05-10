@@ -3,22 +3,25 @@
 
 ##### Github
 function repl {
-	cleanup
+	
 	while true ; do
+		
 		echo -n "What are you interested in? Type q to exit > "
 		read keyword
+		cleanup
 		if [ $keyword = q ]; then
 			exit
 		fi
 		re='^[0-9]+$'
 		
-		echo -n "How many results do you want to see?"
+		echo -n "How many results do you want to see? "
 		read limit			
 		if ! [[ $limit =~ $re ]] ; then
 		   limit = 25
 		fi
 		github $keyword $limit
 		finalscore
+		echo "Save the reports and graphs in tmp folder if you want. They will be deleted in the next search."
 	done
 }
 
@@ -89,7 +92,7 @@ function finalscore {
 	cd ..   #AT SHELL
 	cd ..	#AT SENIOR FIELD PROJECT
 
-	FINAL_SCORE=`echo "($FORK_SCORE + $COMMIT_SCORE + $ISSUE_SCORE) * $USER_SCORE * $HACKERS_SCORE " | bc`
+	FINAL_SCORE=`echo "($FORK_SCORE + $COMMIT_SCORE + $ISSUE_SCORE) * ($USER_SCORE + $HACKERS_SCORE) " | bc`
 	echo "The Final Score is " $FINAL_SCORE
 }
 
