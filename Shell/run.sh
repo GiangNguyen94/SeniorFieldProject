@@ -22,36 +22,6 @@ function repl {
 	done
 }
 
-function finalscore {
-
-	read USER_NAME < tmp/username.txt
-	python3 importPraw.py USER_NAME
-	read USER_SCORE < tmp/user_reddit.score
-	python3 hackernews.py USER_NAME
-	read HACKERS_SCORE < tmp/user_hackers.score
-
-	cp history_score.py tmp/commit/
-	cp history_score.py tmp/fork/
-	cp history_score.py tmp/issue_event/
-	cd tmp/commit/
-	python3 history_score.py
-	read COMMIT_SCORE < history.score
-	
-	cd ..
-	cd fork/
-	python3 history_score.py
-	read FORK_SCORE < history.score
-
-	cd ..
-	cd issue_event/
-	python3 history_score.py
-	read ISSUE_SCORE < history.score
-
-	cd ..   #AT SHELL
-	cd ..	#AT SENIOR FIELD PROJECT
-
-	( $COMMIT_SCORE + $FORK_SCORE + $ISSUE_SCORE ) * $KARMA_SCORE
-}
 
 function github () {
 	echo "Searching $1 in GitHub"
@@ -89,6 +59,41 @@ function github () {
 
 }
 
+function finalscore {
+
+	read name < tmp/username.txt
+	touch tmp/user_reddit.score
+	touch tmp/user_hackers.score
+	python3 importPraw.py $name
+	read USER_SCORE < tmp/user_reddit.score
+	python3 hackernews.py $name
+	read HACKERS_SCORE < tmp/user_hackers.score
+
+	cp history_score.py tmp/commit/
+	cp history_score.py tmp/fork/
+	cp history_score.py tmp/issue_event/
+	cd tmp/commit/
+	python3 history_score.py
+	read COMMIT_SCORE < history.score
+	
+	cd ..
+	cd fork/
+	python3 history_score.py
+	read FORK_SCORE < history.score
+
+	cd ..
+	cd issue_event/
+	python3 history_score.py
+	read ISSUE_SCORE < history.score
+
+	cd ..   #AT SHELL
+	cd ..	#AT SENIOR FIELD PROJECT
+
+	FINAL_SCORE=`echo "($FORK_SCORE + $COMMIT_SCORE + $ISSUE_SCORE) * $USER_SCORE * $HACKERS_SCORE " | bc`
+	echo "The Final Score is " $FINAL_SCORE
+}
+
+
 function cleanup {
 	rm -rf tmp
 }
@@ -119,20 +124,16 @@ function most_widely_used_web {
 
 	#build target directory
  filename=""
-  cond=true
+  
 	filename="$month$year"
+	#target_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../CommonCrawlData/data1-web-ip-country/$filename/" && pwd )"
 	target_file=(~/Desktop/untitled\ folder/data1-web\ ip\ country/$filename/website.csv)
-	if [[ -f target_file ]];
-		then
-		cond=true
-	else
-		cond=false
-		echo "CommonCrawl does not have that month"
-	fi
+	#echo "$target_file"
+	
 
 	#read data from target directory
-	while [[ cond == true ]];
-	do
+	#echo $cond
+	
 		popular_web=""
 		max_number=0
 		while read line; do
@@ -144,7 +145,13 @@ function most_widely_used_web {
 			done <<< "$line"
 		done < "$target_file"
 		echo "The most widely-used website in $filename is: $popular_web"
-	done
+		cd ..
+		cd CommonCrawlData/websites-graph
+		open $month$year.pdf
+		cd ..
+		cd ..
+		cd Shell
+	
 }
 
 ##### most widely-used technology in particular month of a year
@@ -167,21 +174,16 @@ function most_widely_used_tech {
 		month="0$month"
 	fi
 	filename=""
- 	cond=true
 	filename="$month$year.pdf"
 	target_file=(../$filename)
-	if [[ -f target_file ]];
-		then
-		cond=true
-	else
-		cond=false
-		echo "CommonCrawl does not have that month"
-	fi
-	if [[ cond==true ]];
-	then
 		cd ..
+		cd CommonCrawlData/technologies-graph
 		open $month$year.pdf
-	fi
+		
+		cd .. #commoncrawldata
+		cd .. #seniorfieldproject
+		cd Shell
+
 }
 
 ##### technologies used in website and website depolyment
@@ -212,8 +214,8 @@ function web_information {
 	#build target directory
 	filename=""
 	filename="$month$year"
-	target_file=(~/Desktop/shell/commoncrawl_data/data4-web_components/$filename/webComponents.csv)
-	target_file_deploy=(~/Desktop/shell/commoncrawl_data/data3-web_deployments/$filename/websiteDeployments.csv)
+	target_file=(~/Desktop/SeniorFieldProject/CommonCrawlData/data4-web-components/$filename/webComponents.csv)
+	target_file_deploy=(~/Desktop/SeniorFieldProject/CommonCrawlData/data3-web-deployments/$filename/websiteDeployments.csv)
 
 	#read from the target file in web components
 	while read line; do

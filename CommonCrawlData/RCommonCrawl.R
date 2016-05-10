@@ -19,6 +19,25 @@ df112014=read.csv("CommonCrawlData/data2-technologiesmerged/112014/mergedTechnol
 df112015=read.csv("CommonCrawlData/data2-technologiesmerged/112015/mergedTechnologies.csv")
 df122014=read.csv("CommonCrawlData/data2-technologiesmerged/122014/mergedTechnologies.csv")
 
+df012015=df012015[-c(5),]
+df022015=df022015[-c(5),]
+df022016=df022016[-c(5),]
+df032015=df032015[-c(5),]
+df042014=df042014[-c(5),]
+df042015=df042015[-c(5),]
+df052015=df052015[-c(5),]
+df062015=df062015[-c(5),]
+df072014=df072014[-c(4),]
+df072015=df072015[-c(5),]
+df082014=df082014[-c(5),]
+df082015=df082015[-c(5),]
+df092014=df092014[-c(5),]
+df092015=df092015[-c(5),]
+df102014=df102014[-c(5),]
+df112014=df112014[-c(5),]
+df112015=df112015[-c(5),]
+df122014=df122014[-c(4),]
+
 pdf("012015.pdf",width=12,height=9)
 p1=ggplot(data=df012015,aes(x=technologies,y=number))+geom_bar(stat="identity",color="black",fill="#0000ff")
 print(p1)

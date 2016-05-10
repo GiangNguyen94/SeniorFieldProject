@@ -67,6 +67,9 @@ def find_live_by_search_query_with_selection(q, limit=25, sort="", order="desc",
 	if "fork" in report_type:
 		fork_params = [[item["owner"]["login"], item["name"], re.sub("{.*}", "", item["forks_url"])] for item in results["items"]]
 		fork_history.find_raws(fork_params)
+		for item in results["items"]:
+			with open("tmp/username.txt", "w") as out:
+				out.write(str(item["owner"]["login"]))
 	if "commit" in report_type:
 		commit_params = [[item["owner"]["login"], item["name"], re.sub("{.*}", "", item["commits_url"])] for item in results["items"]]
 		commit_history.find_raws(commit_params)
