@@ -51,6 +51,6 @@ Please specify the year (4 digits) followed by [ENTER]:
 Please specify the month (1 or 2 digits) followed by [ENTER]:
 > 1
 processing...
-These technologies are used in http://m.mlb.com: [jquery/jquery.min.js  jquery-plugins/jquery.history.js  jquery-writecapture/jquery.writecapture.js  jquery.bindable.min.js  jquery.writecapture.js  jquery-writecapture/writecapture.js  jquery-plugins/jquery.lazyload.js  jquery]
+These technologies are used in http://m.mlb.com: [jquery/jquery.min.js  jquery-plugins/jquery.history.js  jquery-writecapture/jquery.writecapture.js  jquery.bindable.min.js  jquery.writecapture.js  jquery-writecapture/writecapture.js  jquery-plugins/jquery.lazyload.js  jquery].
 $ 
 ```
