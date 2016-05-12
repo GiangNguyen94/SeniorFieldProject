@@ -261,7 +261,11 @@ function web_information {
 
 ##### documentation
 function usage {
-	echo "this is usage"
+	echo "                                  GitHub"
+	echo "--most-widely-used-web|-mwuw      most_widely_used_web"
+	echo "--most-widely-used-tech|-mwut     most_widely_used_tech"
+	echo "--web-information|-wi             web_information"
+	echo "--help|-h                         help"
 }
 
 ##### main
