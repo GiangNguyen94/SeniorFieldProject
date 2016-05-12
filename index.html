@@ -1,1 +1,280 @@
-COMING SOON!
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Seniorfieldproject : Semester-long research on technology trends and what not.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Seniorfieldproject</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/qxx/SeniorFieldProject">View on GitHub</a>
+
+          <h1 id="project_title">Seniorfieldproject</h1>
+          <h2 id="project_tagline">Semester-long research on technology trends and what not.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/qxx/SeniorFieldProject/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/qxx/SeniorFieldProject/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="senior-field-project-gc-team" class="anchor" href="#senior-field-project-gc-team" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Senior Field Project: GC Team</h1>
+
+<h4>
+<a id="a-glance-at-trending-technologies---a-senior-field-project-by-xi-xin-giang" class="anchor" href="#a-glance-at-trending-technologies---a-senior-field-project-by-xi-xin-giang" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>A Glance at Trending Technologies - A Senior Field Project by Xi, Xin, Giang</h4>
+
+<p>Brandeis, Spring 2016</p>
+
+<h2>
+<a id="objectives" class="anchor" href="#objectives" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Objectives</h2>
+
+<p>Modern websites, mobile applications and open source projects are composed of many technologies and services from a variety of vendor. The relative popularity of these components is of interest to both developers and investors. The goal of this project is to research and test several discovery tools. </p>
+
+<h2>
+<a id="methodology" class="anchor" href="#methodology" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Methodology</h2>
+
+<p>We first came up with a Technology Whitelist that lists out the interesting technologies and their “signatures”. A technology signature can be anything from HTML tags to IP addresses linked to a known service. </p>
+
+<p>Regarding data sources, we decided to dig deep into three realms: <a href="http://commoncrawl.org/">CommonCrawl</a>, <a href="https://github.com/">GitHub</a>, <a href="https://www.reddit.com/">Reddit</a> and <a href="https://news.ycombinator.com/">HackerNews</a>. Refer to our linked paper report for the detailed work on each data source. For our demonstration, we narrowed down our search to 5 interesting technologies: Jquery, AngularJs, Ionic, React and Hubspot services. </p>
+
+<h2>
+<a id="results" class="anchor" href="#results" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Results</h2>
+
+<p>Our final result consists of several graphings demonstrating the use of websites and technologies from CommonCrawl data and allows user to search for repo of interest on GitHub (BONUS: the repo data will also return with a hotness score)</p>
+
+<h3>
+<a id="common-crawl" class="anchor" href="#common-crawl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Common Crawl</h3>
+
+<p>CommonCrawl data provides us with the usage trend of those aforementioned technolgies as well as the top six most active websites in the 18 months of data available. </p>
+
+<h4>
+<a id="technology-usage-trend" class="anchor" href="#technology-usage-trend" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Technology Usage Trend</h4>
+
+<p>Click to see<a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/Jquery%20Trend.pdf">JQUERY USAGE TREND</a></p>
+
+<h4>
+<a id="technology-usage-by-month" class="anchor" href="#technology-usage-by-month" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Technology Usage By Month</h4>
+
+<p>Click to see <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/CommonCrawlData/technologies-graph/012015.pdf">Dec 2015</a></p>
+
+<p>User needs to specify month and year to see the statistics for that month. More can be found in <a href="https://github.com/GiangNguyen94/SeniorFieldProject/tree/master/CommonCrawlData/technologies-graph">this folder</a></p>
+
+<h4>
+<a id="website-crawled-visits-by-month" class="anchor" href="#website-crawled-visits-by-month" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Website Crawled Visits By Month</h4>
+
+<p>Click to see <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/CommonCrawlData/websites-graph/012015.pdf">Dec 2015</a></p>
+
+<p>User needs to specify month and year to see the statistics for that month.
+More can be found in <a href="https://github.com/GiangNguyen94/SeniorFieldProject/tree/master/CommonCrawlData/websites-graph">this folder</a></p>
+
+<h3>
+<a id="github" class="anchor" href="#github" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GitHub</h3>
+
+<p>Here we show some sample data from GitHub research</p>
+
+<h4>
+<a id="trending-jquery-as-an-example" class="anchor" href="#trending-jquery-as-an-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Trending: jQuery as an example</h4>
+
+<ul>
+<li>Commit trend of <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/commit_trend_for_repo_jquery.pdf">jQuery</a>
+</li>
+<li>Fork trend of <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/fork_trend_for_repo_jquery.pdf">jQuery</a>
+</li>
+<li>Issue Event trend of <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/issue_trend_for_repo_jquery.pdf">jQuery</a>
+</li>
+</ul>
+
+<h4>
+<a id="scoring-grit-as-an-example" class="anchor" href="#scoring-grit-as-an-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scoring: grit as an example</h4>
+
+<p><a href="https://github.com/mojombo/grit">grit</a> is one of the earliest repo on github.
+It's final score is: 912.166</p>
+
+<p>Here are the break down:</p>
+
+<ul>
+<li>Owner's username: <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/grit-show-scoring/username.txt">mojombo</a>
+</li>
+<li>Owner's Reddit score: <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/grit-show-scoring/user_reddit.score">1.0</a>
+</li>
+<li>Owner's HackerNews score: <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/grit-show-scoring/user_hackers.score">3.69</a>
+</li>
+<li>Repo's commit history score: <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/grit-show-scoring/commit/history.score">48.42</a>
+</li>
+<li>Repo's fork history score: <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/grit-show-scoring/fork/history.score">21.049</a>
+</li>
+<li>Repo's issue event history score: <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/grit-show-scoring/issue_event/history.score">124.98</a>
+</li>
+</ul>
+
+<p>Also for your reference are:</p>
+
+<ul>
+<li>Repo's commit history: <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/grit-show-scoring/commit/grit.csv">this csv</a>
+</li>
+<li>Repo's fork history: <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/grit-show-scoring/fork/grit.csv">this.csv</a>
+</li>
+<li>Repo's issue event history: <a href="https://github.com/GiangNguyen94/SeniorFieldProject/blob/master/DemoGraphs/grit-show-scoring/issue_event/grit.csv">this.csv</a>
+</li>
+</ul>
+
+<h2>
+<a id="code" class="anchor" href="#code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Code</h2>
+
+<pre><code>Common Crawl WARC Examples/                 working example of exploring WARC files
+CommonCrawJavaFiles/                        all java files for Common Crawl
+GithubLanguage/
+    analysis/
+        commit_history.py                   gets the commit history
+        dbservice.py                        connects to the local database
+        fork_history.py                     gets the fork history
+        fun_facts.py                        few fun facts about github repos
+        get_keys.py                         gathers the attributes returned by github api
+        history.py                          wrapper for commit, fork and event history
+        issue_event_history.py              gets the issue event history
+        language_stats.py                   gathers statistics of language used in repos
+        OAuth.py                            prepares github access token
+        repo_user.py                        reports users contributed to the repos
+        run.py                              interface for shell script's default run
+        score.py                            calculates the history scores
+        search.py                           searchs for repos
+        user_stats.py                       gathers statistics about users
+    json_to_sqlites.py                      dumps json's from api calls to sqlite3
+    repositories.py                         downloads repo infomation from github
+    Shell/
+        hackernews.py                       generates the hackernews score
+        history_score.py                    reports the history scores
+        importPraw.py                       generates the reddit scire
+        run.sh                              the main shell script
+        RViz.R                              R script to generate trending graphs
+
+</code></pre>
+
+<h2>
+<a id="architecture--design" class="anchor" href="#architecture--design" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Architecture &amp; Design</h2>
+
+<p><img src="https://raw.githubusercontent.com/GiangNguyen94/SeniorFieldProject/master/Report/flowchart.png" alt="Flow Chart"></p>
+
+<h2>
+<a id="scoring-a-github-repo" class="anchor" href="#scoring-a-github-repo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Scoring a Github repo</h2>
+
+<p>We found out a relatively smart way to score the open source projects on GitHub. We have the preliminary score which shows first when you search, which is just stars and forks of the repo combined. This pre-score lets us have a quick glance at the repo and once we know which repo we want to see further, the final score is generated. The final score formula is as follows:
+( Commit_Score + Fork_Score + Issue_Score ) * ( Reddit_Score + HackerNews_Score) </p>
+
+<p>When we run the GitHub script we have the three history files for commits, forks and issue events. From that we would generate the first three subscores of the formula. A history file tracks the activity of the corresponding type by month. Since we are more interested in the recent technologies, we assign higher weights to more recent months. This results in a geometric weight system that for every month backwards in the past, the value of that month is changed by a multiplier which degenerates monthly as well. We use a 90% multiplier coefficient so the most recent month would be 100% of value, the next ones would be 90%, 81%, 72.9%, … of value. For the Reddit and Hacker News score, we would take the log base 10 of each total karma score of a user from those two sites and then add them together. If the karma score is less than 10 (in case a user does not have an account there), we assign a value of 1 to that score and continue calculating as usual.</p>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h2>
+
+<ul>
+<li>Github API access token
+
+<ul>
+<li>Follow the link to aquire your Github API access tokens: <a href="https://help.github.com/articles/creating-an-access-token-for-command-line-use/">https://help.github.com/articles/creating-an-access-token-for-command-line-use/</a>
+</li>
+<li>Store your access token in <code>GithubLanguage/analysis/access_token.secret</code>, one token per line</li>
+<li>Also copy to <code>GithubLanguage/access_token.secret</code> if you wish to run scripts outside of <code>analysis</code>
+</li>
+</ul>
+</li>
+<li>Bash</li>
+<li>Python 2.7
+
+<ul>
+<li>urllib2</li>
+<li>progressbar</li>
+<li>ipython</li>
+</ul>
+</li>
+<li>Python 3.4
+
+<ul>
+<li>Use <code>python3 -m pip install &lt;package&gt;</code> to specify the python version</li>
+<li>praw</li>
+</ul>
+</li>
+<li>R 3.2.4
+
+<ul>
+<li>ggplot2</li>
+</ul>
+</li>
+<li>PDF Viewer</li>
+<li>Internet Access</li>
+</ul>
+
+<h2>
+<a id="suggestions-for-future-work" class="anchor" href="#suggestions-for-future-work" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Suggestions for Future Work</h2>
+
+<h4>
+<a id="common-crawl-1" class="anchor" href="#common-crawl-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Common Crawl</h4>
+
+<p>If we had more time, we would try to use the new index and query API system of common crawl. This new feature was made by common crawl community in January 2015, which provides an API that allows user to query a particular index for a particular domain, (index is a snapshot for each crawling run they perform), and it will return back results that point you to the location of where the actual HTML content for that snapshot lives. Moreover probably do some semantic analysis with WET files would also be helpful.</p>
+
+<h4>
+<a id="reddit--hackernews" class="anchor" href="#reddit--hackernews" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Reddit / HackerNews</h4>
+
+<p>For possible future continuation of this project, we think it would be better to use Reddit / Hacker News to track a particular interest and use other data resources to get the big picture. Stackoverflow, The Internet Archive and other social media services like Facebook, Twitter, Vk, Weibo seem to have a lot of potential for that. Also, we suggest using our methodology but in a much larger scale, handling big data to get all the scores possible and compare them with each other. If possible, we would try to draw correlations and heatmaps of developers’ associated communities.</p>
+
+<h4>
+<a id="github-1" class="anchor" href="#github-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>GitHub</h4>
+
+<p>As suggestions for the future, we can consider more about how to incorporate user’s value into the evaluation of repos. With the history we can find the user connected with each event, and there are repos, other users, and events connect to that user. With some iterations, the evaluation of users and repos may come to a fixed point and that probably will be score we were looking for.</p>
+
+<p>More generally, I would say simply with the GitHub data source alone, it would be worthy of a team’s investment. With more manpower, we can dig deeper into the information behind the tons’ of data. Although we did not follow through our attempt with GitHub Archive and Google BigQuery, these still are great data source and still worth look into. As time changes there will be more and more repos on GitHub. New tools and new information may come into light at any time. </p>
+
+<h2>
+<a id="team-members" class="anchor" href="#team-members" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Team Members</h2>
+
+<ul>
+<li>
+<a href="https://github.com/GiangNguyen94">Giang Nguyen</a> &lt;<a href="mailto:giangcoi@brandeis.edu">giangcoi@brandeis.edu</a>&gt;
+
+<ul>
+<li>Giang is a graduating Senior at Brandeis University.</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/qxx">Xi Qian</a> &lt;<a href="mailto:qxx@brandeis.edu">qxx@brandeis.edu</a>&gt;
+
+<ul>
+<li>Xi is a graduating Master's student at Brandeis Univeristy.</li>
+</ul>
+</li>
+<li>
+<a href="https://github.com/XinYao1992">Xin Yao</a> &lt;<a href="mailto:xyao01@brandeis.edu">xyao01@brandeis.edu</a>&gt;
+
+<ul>
+<li>Xin is a Master's student at Brandeis University.</li>
+</ul>
+</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Seniorfieldproject maintained by <a href="https://github.com/qxx">qxx</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
