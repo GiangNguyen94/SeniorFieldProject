@@ -1,4 +1,23 @@
-# Running the Shell script
+# Shell Scripts
+
+## Requirements for Default Usage
+
+To run the provided shell script, you need:
+
+* Github API access token
+* Bash
+* Python 2.7
+    * urllib2
+    * progressbar
+    * ipython
+* Python 3.4
+    * praw
+* R 3.2.4
+    * ggplot2
+* PDF Viewer
+* Internet Access
+
+## Running the Shell script
 
 Make sure you have your Github access tokens in /GithubLanguage/analysis/access_token.secret
 
@@ -15,7 +34,7 @@ The reporting files generated be the script can be found in /Shell/reports/
 There will also be a copy of reporting files in /Shell/tmp/ , which will be deleted next time the script runs.
 
 
-### Common Crawler usage example
+## Common Crawler usage example
 ```
 $ ./run.sh --most-widely-used-web
 Please specify the year (4 digits) followed by [ENTER]:
