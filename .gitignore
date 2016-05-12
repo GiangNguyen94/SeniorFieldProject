@@ -7,3 +7,4 @@
 /Shell/tmp/
 /GithubLanguage/analysis/reports/
 /GithubLanguage/analysis/tmp/
+**/*.DS_Store
